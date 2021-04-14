@@ -1,16 +1,11 @@
 # bank_app
 
-A new Flutter application.
+Uses a local database stored on your phone using SQLite Database to store transaction histories and data locally and be alble to save the data.
 
-## Getting Started
+Link to demo of the App:
+https://youtu.be/6FxJ6aNI_4M
 
-This project is a starting point for a Flutter application.
+Images:
+![image](https://user-images.githubusercontent.com/70048742/114752505-fc9ed680-9d73-11eb-9a4b-da672a6a51ec.png)
+![image](https://user-images.githubusercontent.com/70048742/114752633-26f09400-9d74-11eb-8b2f-4ae39e754c63.png)
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

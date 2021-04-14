@@ -1,6 +1,6 @@
 # bank_app
 
-Uses a local database stored on your phone using SQLite Database to store transaction histories and data locally and be alble to save the data.
+Uses a local database stored on your phone using SQLite Database to store transaction histories and data locally and be able to save the data.
 
 Link to demo of the App:
 https://youtu.be/6FxJ6aNI_4M

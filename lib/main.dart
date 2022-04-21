@@ -21,7 +21,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
-
   final String title;
 
   @override
@@ -29,7 +28,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   List<Users> newusers;
 
   @override
@@ -39,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
-  refreshList() async{
+  refreshList() async {
     newusers = await DBProvider.db.getAllUsers();
     setState(() {});
   }
@@ -47,20 +45,28 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [SizedBox(height:MediaQuery.of(context).padding.top+5,),
-            Text("Bank Accounts",
-              style: TextStyle(fontSize: 35,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'TCM'),),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: FutureBuilder(
-                    future: DBProvider.db.getAllUsers(),
-                  builder: (context,AsyncSnapshot<List<Users>> snapshot) {
+      backgroundColor: Colors.black,
+        body: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: MediaQuery.of(context).padding.top + 5,
+          ),
+          Text(
+            "Customers",
+            style: TextStyle(
+              fontSize: 35,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.all(15),
+              child: FutureBuilder(
+                  future: DBProvider.db.getAllUsers(),
+                  builder: (context, AsyncSnapshot<List<Users>> snapshot) {
                     if (snapshot.hasData) {
                       print('project snapshot data is: ${snapshot.data}');
                       return ListView.builder(
@@ -68,56 +74,65 @@ class _MyHomePageState extends State<MyHomePage> {
                           itemBuilder: (context, index) {
                             var project = snapshot.data[index];
                             return buildCard(context, project);
-                          }
-                      );
-                    }return CircularProgressIndicator();
-
-                  }),),
+                          });
+                    }
+                    return CircularProgressIndicator();
+                  }),
             ),
-          ],
-        ),
-      )
-    );
+          ),
+        ],
+      ),
+    ));
   }
 }
-Widget buildCard(context,var snapshot){
+
+Widget buildCard(context, var snapshot) {
   final user = snapshot;
   return Container(
-    child:Card(
-      color: Colors.grey[100],
+    child: Card(
+      color: Colors.grey[900],
       elevation: 0,
       child: InkWell(
         splashColor: Colors.blue.withAlpha(30),
-        onTap: (){showDialogBox(context, user.username, user.balance);},
+        onTap: () {
+          showDialogBox(context, user.username, user.balance);
+        },
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 20, horizontal: 5),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [Padding(
-              padding: EdgeInsets.symmetric(horizontal: 3),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [Text(user.username,
-                    style: TextStyle(
-                      fontFamily: 'heav',
-                      fontSize: 20,
-                    ),), Text(user.email,
-                    style: TextStyle(
-                        fontFamily: 'mic',
-                        fontSize: 15
-                    ),)]),
-            ),
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 3),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        user.username,
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        user.email,
+                        style: TextStyle(fontSize: 15,color: Colors.white,),
+
+                      )
+                    ]),
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 5),
-                child: Text("₹ "+user.balance.toString(),
+                child: Text(
+                  user.balance.toString(),
                   style: TextStyle(
-                      color: Colors.black45,
-                      fontFamily: 'luc',
+                      color: Colors.white,
                       fontSize: 20,
                       fontWeight: FontWeight.bold),
                 ),
-              )],
+              )
+            ],
           ),
         ),
       ),
@@ -125,14 +140,12 @@ Widget buildCard(context,var snapshot){
   );
 }
 
-
-
-showDialogBox(context, username, balance){
-
-  return showDialog(context: context,
-      builder: (context){
+showDialogBox(context, username, balance) {
+  return showDialog(
+      context: context,
+      builder: (context) {
         return Center(
-          child:Material(
+          child: Material(
             type: MaterialType.transparency,
             child: Container(
               decoration: BoxDecoration(
@@ -141,36 +154,46 @@ showDialogBox(context, username, balance){
               ),
               padding: EdgeInsets.all(20),
               height: 320,
-              width: MediaQuery.of(context).size.width*0.7,
+              width: MediaQuery.of(context).size.width * 0.7,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [Row(
-                  children: [FlutterLogo(size: 50,),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text("GoBank",
-                      style: TextStyle(
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        "Bank App",
+                        style: TextStyle(
                           fontSize: 30,
-                          fontFamily: 'heav'),)
-                  ],
-                ),
-                  Text("Name: $username",
+                        ),
+                      )
+                    ],
+                  ),
+                  Text(
+                    "Name: $username",
                     style: TextStyle(
-                      fontFamily: 'TCM',
-                      fontSize: 25,),),
-                  Text("Current Balance: ₹$balance",
-                    style: TextStyle(
-                        fontFamily: 'TCM',
-                        fontSize: 25),),
-                  SizedBox(height: 10,),
-                  FlatButton(onPressed: () {
-                    Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => CustomerView(),
-                          settings: RouteSettings(arguments: [username, balance])),);
-                  },
-                      child: Text("Transfer"))],
+                      fontSize: 25,
+                    ),
+                  ),
+                  Text(
+                    "Current Balance: $balance",
+                    style: TextStyle(fontSize: 25),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  FlatButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CustomerView(),
+                              settings: RouteSettings(
+                                  arguments: [username, balance])),
+                        );
+                      },
+                      child: Text("Transfer"))
+                ],
               ),
             ),
           ),

@@ -46,16 +46,16 @@ class _CustomerViewState extends State<CustomerView> {
 
     return Material(
       child: Container(
-        color: Colors.white,
+        color: Colors.black,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [SizedBox(height: MediaQuery.of(context).padding.top+5,),
               Text("Enter amount: ", style: TextStyle(
-                  fontFamily: 'TCM',
                   fontWeight: FontWeight.bold,
-                  fontSize: 35)),
+                  fontSize: 35,
+                color: Colors.white,)),
               Row(
                   children: [Expanded(
                     child: TextField(
@@ -63,79 +63,78 @@ class _CustomerViewState extends State<CustomerView> {
                       keyboardType: TextInputType.number,
                       inputFormatters: <TextInputFormatter>[
                         FilteringTextInputFormatter.digitsOnly],
-                      decoration: InputDecoration(hintText: "Enter amount here"),
+                      decoration: InputDecoration(hintText: "Enter amount here", hintStyle: TextStyle(color: Colors.white,)),
                       onSubmitted: (value) async {
                         _transfer= int.parse(value);
                         print("MaxAmount is: $maxAmount");
-                        },
+                      },
                     ),
 
                   ),]
               ),
               SizedBox(height: 30,),
               Text("Transfer to account: ", style: TextStyle(
-                  fontFamily: 'TCM',
                   fontWeight: FontWeight.bold,
-                  fontSize: 35
+                  fontSize: 35,
+                color: Colors.white,
               ),),
               Expanded(child: FutureBuilder(
-                future: DBProvider.db.getAllUsers(),
+                  future: DBProvider.db.getAllUsers(),
                   builder: (context,AsyncSnapshot<List<Users>> snapshot){
-                  if(snapshot.hasData){
-                    return ListView.builder(
-                        itemCount: snapshot.data.length,
-                        itemBuilder: (context, index) {
-                          var project = snapshot.data[index];
-                         // if (snapshot.data[index].username!= username){
-                          return Card(
-                            color: Colors.grey[100],
-                            elevation: 0,
-                            child: InkWell(
-                              splashColor: Colors.blue.withAlpha(30),
-                              onTap:(){
+                    if(snapshot.hasData){
+                      return ListView.builder(
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (context, index) {
+                            var project = snapshot.data[index];
+                            // if (snapshot.data[index].username!= username){
+                            return Card(
+                              color: Colors.grey[900],
+                              elevation: 0,
+                              child: InkWell(
+                                onTap:(){
 
-                                 if(_transfer!=null){
-                                DBProvider.db.updateBalance((project.balance + _transfer), project.username);
-                                DBProvider.db.updateBalance((balance - _transfer), username);
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage()));}
-                              else{
-                                showDialog(context: context,builder: (context){
-                                return Center(child:Material(
-                                    type: MaterialType.transparency,
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(20),
-                                          color: Colors.white,
-                                        ),
-                                        padding: EdgeInsets.all(20),
-                                        height: 150,
-                                        width: MediaQuery.of(context).size.width*0.7,
-                                        child:Column(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Center(child: Text("Please enter amount to be transferred",
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                              ),)),
-                                            FlatButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage()));}, child: Text("OK"))
-                                          ],
-                                        ))));});}},
-                              child: Padding(
-                                padding: EdgeInsets.all(20),
-                                child: Text(project.username,
-                                  style: TextStyle(
-                                    fontFamily: 'mic',
-                                    fontSize: 23,
-                                  ),),
+                                  if(_transfer!=null){
+                                    DBProvider.db.updateBalance((project.balance + _transfer), project.username);
+                                    DBProvider.db.updateBalance((balance - _transfer), username);
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage()));}
+                                  else{
+                                    showDialog(context: context,builder: (context){
+                                      return Center(child:Material(
+                                          type: MaterialType.transparency,
+                                          child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(20),
+                                                color: Colors.white,
+                                              ),
+                                              padding: EdgeInsets.all(20),
+                                              height: 150,
+                                              width: MediaQuery.of(context).size.width*0.7,
+                                              child:Column(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Center(child: Text("Please enter amount to be transferred",
+                                                    style: TextStyle(
+                                                      fontSize: 20,
+                                                    ),)),
+                                                  FlatButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage()));}, child: Text("OK"))
+                                                ],
+                                              ))));});}},
+                                child: Padding(
+                                  padding: EdgeInsets.all(20),
+                                  child: Text(project.username,
+                                    style: TextStyle(
+                                      fontSize: 23,
+                                      color: Colors.white,
+                                    ),),
+                                ),
                               ),
-                            ),
-                          );}
-                    );
-                  }
+                            );}
+                      );
+                    }
                     return CircularProgressIndicator();
                   }
 
-                ),
+              ),
               )
             ],
           ),

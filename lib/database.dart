@@ -22,16 +22,17 @@ class DBProvider{
 
   initDB() async {
     //example database
-    final List users = [Users(username:"Jhon Wick",email:"jhon@gmail.com",balance: 5000),
-      Users(username:"Sam Wain",email:"swain@gmail.com",balance: 10000),
-      Users(username:"Jack Ryan",email:"jkryan@gmail.com",balance: 9000),
-      Users(username:"Humo Puros",email:"humo@gmail.com",balance: 5000),
-      Users(username:"Jonathan Pam",email:"jpam@gmail.com",balance: 3000),
-      Users(username:"Richard Jackson",email:"rjackson@gmail.com",balance: 7000),
-      Users(username:"Bruce Wein",email:"brucewein@gmail.com",balance: 6000),
-      Users(username:"Lamar Wildfred",email:"lamar@gmail.com",balance: 12000),
-      Users(username:"John Rambo",email:"jrambo@gmail.com",balance: 18000),
-      Users(username:"Miles Morales",email:"miles@gmail.com",balance: 25000)];
+    final List users = [
+      Users(username:"Peter 1",email:"spiderboi@gmail.com",balance: 5000),
+      Users(username:"Peter 2",email:"amazingspider@gmail.com",balance: 10000),
+      Users(username:"Peter 3",email:"adultspider@gmail.com",balance: 9000),
+      Users(username:"May Parker",email:"auntmay@gmail.com",balance: 5000),
+      Users(username:"MJ",email:"michelle@gmail.com",balance: 3000),
+      Users(username:"Ned",email:"ned@gmail.com",balance: 7000),
+      Users(username:"Norman Osborn",email:"goblin@gmail.com",balance: 6000),
+      Users(username:"Otto Octavius",email:"octopus@gmail.com",balance: 12000),
+      Users(username:"Max Dillon",email:"electro@gmail.com",balance: 18000),
+      Users(username:"Stephen Strange",email:"wizard@gmail.com",balance: 25000)];
 
     io.Directory documentsDirectory = await getApplicationDocumentsDirectory();
 
@@ -77,8 +78,8 @@ class DBProvider{
 
 
   Future<List<Map<String, dynamic>>> getUser(String username) async {
-  final db = await database;
-  var res = await db.rawQuery('SELECT * FROM "users" WHERE username = "$username"');
-  return res;
-}
+    final db = await database;
+    var res = await db.rawQuery('SELECT * FROM "users" WHERE username = "$username"');
+    return res;
+  }
 }
